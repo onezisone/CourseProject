@@ -15,21 +15,18 @@ https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Datas
 
 The aim of the project is to clean and extract usable data from the above zip file. R script called run_analysis.R that does the following:
 
-*Merges the training and the test sets to create one data set.
-*Extracts only the measurements on the mean and standard deviation for each measurement.
-*Uses descriptive activity names to name the activities in the data set
-*Appropriately labels the data set with descriptive variable names.
+* Merges the training and the test sets to create one data set.
+* Extracts only the measurements on the mean and standard deviation for each measurement.
+* Uses descriptive activity names to name the activities in the data set
+* Appropriately labels the data set with descriptive variable names.
 
 From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 In this repository, you find:
 
-*run_analysis.R : the R-code run on the data set
-
-*Tidy.txt : the clean data extracted from the original data using run_analysis.R
-
-*CodeBook.md : the CodeBook reference to the variables in Tidy.txt
-
-*README.md : the analysis of the code in run_analysis.R
+* run_analysis.R : the R-code run on the data set
+* Tidy.txt : the clean data extracted from the original data using run_analysis.R
+* CodeBook.md : the CodeBook reference to the variables in Tidy.txt
+* README.md : the analysis of the code in run_analysis.R
 
 ##Getting Started
 
@@ -91,16 +88,16 @@ completeData <- cbind(features,activity,subject)
 
 ##Part 2 - Extracts only the measurements on the mean and standard deviation for each measurement
 
-###Extract the column indices that have either mean or std in them.
+Extract the column indices that have either mean or std in them.
 
 columnsWithMeanSTD <- grep(".*Mean.*|.*Std.*", names(completeData), ignore.case=TRUE)
 
-###Add activity and subject columns to the list and look at the dimension of completeData
+Add activity and subject columns to the list and look at the dimension of completeData
 
 requiredColumns <- c(columnsWithMeanSTD, 562, 563)
 dim(completeData)
 
-###We create extractedData with the selected columns in requiredColumns. And again, we look at the dimension of requiredColumns.
+We create extractedData with the selected columns in requiredColumns. And again, we look at the dimension of requiredColumns.
 
 extractedData <- completeData[,requiredColumns]
 dim(extractedData)
@@ -126,17 +123,12 @@ names(extractedData)
 
 By examining extractedData, we can say that the following acronyms can be replaced:
 
-*Acc can be replaced with Accelerometer
-
-*Gyro can be replaced with Gyroscope
-
-*BodyBody can be replaced with Body
-
-*Mag can be replaced with Magnitude
-
-*Character f can be replaced with Frequency
-
-*Character t can be replaced with Time
+* Acc can be replaced with Accelerometer
+* Gyro can be replaced with Gyroscope
+* BodyBody can be replaced with Body
+* Mag can be replaced with Magnitude
+* Character f can be replaced with Frequency
+* Character t can be replaced with Time
 
 names(extractedData)<-gsub("Acc", "Accelerometer", names(extractedData))
 names(extractedData)<-gsub("Gyro", "Gyroscope", names(extractedData))
@@ -157,7 +149,7 @@ names(extractedData)
 
 ##Part 5 - From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject
 
-###Firstly, let us set Subject as a factor variable.
+Firstly, let us set Subject as a factor variable.
 
 extractedData$Subject <- as.factor(extractedData$Subject)
 extractedData <- data.table(extractedData)
